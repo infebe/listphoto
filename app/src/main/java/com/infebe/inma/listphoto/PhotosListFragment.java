@@ -62,7 +62,7 @@ public class PhotosListFragment extends ListFragment {
         mCallback.onPhotoSelected(position);
     }
 
-    private ArrayList<PhotoItem> getPhotoListData(){
+    public static ArrayList<PhotoItem> getPhotoListData(){
 
         ArrayList<PhotoItem> listPhotos = new ArrayList<PhotoItem>();
 

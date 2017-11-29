@@ -1,5 +1,6 @@
 package com.infebe.inma.listphoto;
 
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -40,6 +41,34 @@ public class MainActivity extends AppCompatActivity implements PhotosListFragmen
         Log.i(this.getClass().getName(), "Entered onPhotoSelected. The photo selected was " + position);
 
        //We have to display the details of the selected Photo
+
+       // DetailFragment detailFragment = (DetailFragment) getSupportFragmentManager().findFragmentById(R.id.detail_fragment);
+        //TODO: Until we put the two-pane layout, we leave detailFragment = null
+
+        DetailFragment detailFragment = null;
+
+        if(detailFragment!=null){
+            //We are in a two-pane layout
+        }else{
+            //We are in a one-pane layout and must swap fragments
+
+            //We create the fragment and give it an argument for the selected PhotoItem
+            DetailFragment newDetailFragment = new DetailFragment();
+            Bundle args = new Bundle();
+            args.putInt(DetailFragment.ARG_POSITION, position);
+            newDetailFragment.setArguments(args);
+
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            //Replace whatever is in the fragment_container view with this fragment,
+            //and add the transaction to the back stack so the user can navigate back
+            transaction.replace(R.id.fragment_container, newDetailFragment);
+            transaction.addToBackStack(null);
+
+            //commit the transaction
+            transaction.commit();
+
+            //TODO: need to call executePendingTransactions????
+        }
 
     }
 }
