@@ -18,8 +18,11 @@ import java.util.ArrayList;
 
 public class PhotoListAdapter extends ArrayAdapter<PhotoItem> {
 
+    private Context context;
+
     public PhotoListAdapter(Context context, ArrayList<PhotoItem> items){
         super(context, 0, items);
+        this.context = context;
     }
 
     @NonNull
@@ -32,18 +35,18 @@ public class PhotoListAdapter extends ArrayAdapter<PhotoItem> {
         //Check if an existing view is being reused, otherwise inflate the view
 
         if(convertView == null){
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_item, parent, false);
+            convertView = LayoutInflater.from(this.context).inflate(R.layout.list_item, parent, false);
         }
 
         //Get the views to put data
-        ImageView mImgPhoto = (ImageView) convertView.findViewById(R.id.imgPhoto);
-        TextView mTxtName = (TextView) convertView.findViewById(R.id.txtPhotoName);
+        ImageView mImgPhoto = (ImageView) convertView.findViewById(R.id.imgPhotoListItem);
+        TextView mTxtName = (TextView) convertView.findViewById(R.id.txtPhotoListItem);
 
         //Populate the data into the template view using the data object
-        if(item!=null) {
-            if (item.getUrl() != null)
+        if(item != null) {
+            if (mImgPhoto != null && item.getUrl() != null)
                 mImgPhoto.setImageURI(item.getUrl());
-            if (item.getName() != null)
+            if (mTxtName != null && item.getName() != null)
                 mTxtName.setText(item.getName());
         }
         //return the completed view to render on screen
