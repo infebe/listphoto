@@ -42,13 +42,12 @@ public class MainActivity extends AppCompatActivity implements PhotosListFragmen
 
        //We have to display the details of the selected Photo
 
-       // DetailFragment detailFragment = (DetailFragment) getSupportFragmentManager().findFragmentById(R.id.detail_fragment);
-        //TODO: Until we put the two-pane layout, we leave detailFragment = null
-
-        DetailFragment detailFragment = null;
+        DetailFragment detailFragment = (DetailFragment) getSupportFragmentManager().findFragmentById(R.id.detail_fragment);
 
         if(detailFragment!=null){
             //We are in a two-pane layout
+            detailFragment.updatePhotoDetail(position);
+
         }else{
             //We are in a one-pane layout and must swap fragments
 

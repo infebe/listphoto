@@ -78,5 +78,13 @@ public class PhotosListFragment extends ListFragment {
         return listPhotos;
     }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
+        //When using two-pane layout, configure the ListView to highlight the selected item
+        if(this.getFragmentManager().findFragmentById(R.id.detail_fragment)!=null){
+            getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+        }
+    }
 }
