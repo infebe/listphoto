@@ -46,6 +46,14 @@ public class MainActivity extends AppCompatActivity implements PhotosListFragmen
 
         if(detailFragment!=null){
             //We are in a two-pane layout
+
+           /*
+            *This is needed if in the Detail we want to use onSavedInstanceState
+            *
+            Bundle args = new Bundle();
+            args.putInt(DetailFragment.ARG_POSITION, position);
+            detailFragment.setArguments(args);*/
+
             detailFragment.updatePhotoDetail(position);
 
         }else{

@@ -26,11 +26,12 @@ public class DetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
+        //This only works if in the MainActivity we put the arguments in the bundle when creating the frame
         //If activity recreated such as screen rotate, restore
         //the previous photo selection set by onSaveInstanceState()
-        if(savedInstanceState != null){
-            mCurrentPosition = savedInstanceState.getInt(ARG_POSITION);
-        }
+       // if(savedInstanceState != null){
+         //   mCurrentPosition = savedInstanceState.getInt(ARG_POSITION);
+        //}
 
         //Inflate the layout for this fragment
         return inflater.inflate(R.layout.photo_details, container, false);
@@ -66,5 +67,14 @@ public class DetailFragment extends Fragment {
         txtPhoto.setText(photoList.get(position).getName());
 
         mCurrentPosition = position;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        //Retain this Fragment across Activity reconfigurations
+        //With this line the fragment won't get destroyed and will always show the last data selected
+        setRetainInstance(true);
     }
 }
