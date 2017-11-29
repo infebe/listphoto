@@ -2,8 +2,9 @@ package com.infebe.inma.listphoto;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements PhotosListFragment.OnPhotoSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +32,14 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
+    }
+
+    @Override
+    public void onPhotoSelected(int position) {
+        Log.i(this.getClass().getName(), "Entered onPhotoSelected. The photo selected was " + position);
+
+       //We have to display the details of the selected Photo
 
     }
 }
