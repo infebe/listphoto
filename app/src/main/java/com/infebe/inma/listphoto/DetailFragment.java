@@ -62,9 +62,12 @@ public class DetailFragment extends Fragment {
         ImageView imgView = (ImageView) getActivity().findViewById(R.id.imgPhoto);
         TextView txtPhoto = (TextView) getActivity().findViewById(R.id.txtPhotoName);
 
-        //TODO: temp solution, Think of a better one to share the data
+        //Temp solution, Think of a better one to share the data. This solution IS WRONG. We
+        //are communicating two fragments directly!! :(
+        //  ArrayList<PhotoItem> photoList = PhotosListFragment.getPhotoListData();
 
-        ArrayList<PhotoItem> photoList = PhotosListFragment.getPhotoListData();
+        //This is a better solution
+        ArrayList<PhotoItem> photoList = GetPhotoListDataVolley.getDataList();
 
         //imgView.setImageURI(photoList.get(position).getUrl());
 

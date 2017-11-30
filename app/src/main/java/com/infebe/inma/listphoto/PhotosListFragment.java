@@ -16,9 +16,22 @@ import java.util.ArrayList;
  * Created by Inma on 11/29/17.
  */
 
-public class PhotosListFragment extends ListFragment {
+public class PhotosListFragment extends ListFragment implements GetPhotoListDataVolley.onDataReceivedListener {
 
     OnPhotoSelectedListener mCallback;
+    Context mContext;
+
+    @Override
+    public void receivedData() {
+        //When we have the data, we show it
+
+        //Create adapter for the ListFragment
+        //getActivity returns the Activity associated to a Fragment
+        PhotoListAdapter mPhotoListAdapter = new PhotoListAdapter(getActivity(), GetPhotoListDataVolley.getDataList());
+
+        //Set the list adapter for this ListFragment
+        setListAdapter(mPhotoListAdapter);
+    }
 
     //Fragments can't communicate directly. They have to do it
     //through the Activity where they are contained
@@ -33,12 +46,17 @@ public class PhotosListFragment extends ListFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //Create adapter for the ListFragment
+        //First of all, retrieve the list data
+        getPhotoListDataJSONVolley(this);
+
+      /* This is the solution for when we have Local data
+       *
+       //Create adapter for the ListFragment
         //getActivity returns the Activity associated to a Fragment
-        PhotoListAdapter mPhotoListAdapter = new PhotoListAdapter(getActivity(), getPhotoListData());
+        PhotoListAdapter mPhotoListAdapter = new PhotoListAdapter(getActivity(), getPhotoListDataJSONVolley(mContext));
 
         //Set the list adapter for this ListFragment
-        setListAdapter(mPhotoListAdapter);
+        setListAdapter(mPhotoListAdapter);*/
     }
 
     @Override
@@ -52,6 +70,7 @@ public class PhotosListFragment extends ListFragment {
 
         try{
             mCallback = (OnPhotoSelectedListener) context;
+            mContext = context;
         }catch(ClassCastException e){
             throw new ClassCastException(context.toString() + "must implement OnPhotoSelecetedListener");
         }
@@ -77,6 +96,15 @@ public class PhotosListFragment extends ListFragment {
 
         return listPhotos;
     }
+
+
+
+    public ArrayList<PhotoItem> getPhotoListDataJSONVolley(PhotosListFragment context){
+        GetPhotoListDataVolley getData = new GetPhotoListDataVolley(context);
+        return getData.getDataList();
+    }
+
+
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
