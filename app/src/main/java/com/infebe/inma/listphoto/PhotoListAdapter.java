@@ -10,6 +10,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+
 import java.util.ArrayList;
 
 /**
@@ -44,8 +47,18 @@ public class PhotoListAdapter extends ArrayAdapter<PhotoItem> {
 
         //Populate the data into the template view using the data object
         if(item != null) {
-            if (mImgPhoto != null && item.getUrl() != null)
-                mImgPhoto.setImageURI(item.getUrl());
+            if (mImgPhoto != null && item.getUrl() != null) {
+               // mImgPhoto.setImageURI(item.getUrl());
+
+                //Uses Glide library to insert the image in the imageView
+                RequestOptions requestOptions = new RequestOptions();
+                requestOptions.placeholder(android.R.drawable.ic_menu_gallery);
+                requestOptions.error(android.R.drawable.ic_menu_report_image);
+
+                Glide.with(this.context)
+                        .load(item.getUrl())
+                        .into(mImgPhoto);
+            }
             if (mTxtName != null && item.getName() != null)
                 mTxtName.setText(item.getName());
         }

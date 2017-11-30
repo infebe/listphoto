@@ -9,6 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
@@ -63,7 +66,17 @@ public class DetailFragment extends Fragment {
 
         ArrayList<PhotoItem> photoList = PhotosListFragment.getPhotoListData();
 
-        imgView.setImageURI(photoList.get(position).getUrl());
+        //imgView.setImageURI(photoList.get(position).getUrl());
+
+        //Uses Glide library to load photo into the imageView
+        RequestOptions requestOptions = new RequestOptions();
+        requestOptions.placeholder(android.R.drawable.ic_menu_gallery);
+        requestOptions.error(android.R.drawable.ic_menu_report_image);
+
+        Glide.with(this)
+                .load(photoList.get(position).getUrl())
+                .into(imgView);
+
         txtPhoto.setText(photoList.get(position).getName());
 
         mCurrentPosition = position;
